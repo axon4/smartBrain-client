@@ -1,8 +1,9 @@
-# SmartBrain
+# SmartBrain (Client)
 
-* Automatically detect multiple faces with SmartBrain's artificial intelligence.
-* Log in securely and see your entry count.
-* Back End: <a href='https://github.com/axon4/smartbrain-api' target='_blank'>SmartBrain API</a>.
+* front-end for SmartBrain, an automatic--face-detection---application
+* automatically detect multiple faces with artificial-intelligence
+* log-in securely and see entry-count
+* server: ![SmartBrain (Server)](https://github.com/axon4/smartBrain-server)
 
 ## Stack
 

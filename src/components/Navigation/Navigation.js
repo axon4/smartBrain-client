@@ -1,20 +1,20 @@
 import React from 'react';
 
 const Navigation = ({ isLoggedIn, onStageChange }) => {
-    if (isLoggedIn) {
-        return (
-            <nav style={{display: 'flex', justifyContent: 'flex-end'}}>
-                <p onClick={() => onStageChange('logOut')} className='f3 link dim black underline pa3 pointer'>Log Out</p>
-            </nav>
-        );
-    } else {
-        return (
-            <nav style={{display: 'flex', justifyContent: 'flex-end'}}>
-                <p onClick={() => onStageChange('logIn')} className='f3 link dim black underline pa3 pointer'>Log In</p>
-                <p onClick={() => onStageChange('register')} className='f3 link dim black underline pa3 pointer'>Register</p>
-            </nav>
-        );
-    };
+	if (isLoggedIn) {
+		return (
+			<nav style={{display: 'flex', justifyContent: 'flex-end'}}>
+				<p className='f3 link dim black underline pa3 pointer' onClick={() => {onStageChange('logOut')}}>Log-Out</p>
+			</nav>
+		);
+	} else {
+		return (
+			<nav style={{ display: 'flex', justifyContent: 'flex-end' }}>
+				<p className='f3 link dim black underline pa3 pointer' onClick={() => {onStageChange('logIn')}}>Log-In</p>
+				<p className='f3 link dim black underline pa3 pointer' onClick={() => {onStageChange('register')}}>Register</p>
+			</nav>
+		);
+	};
 };
 
 export default Navigation;

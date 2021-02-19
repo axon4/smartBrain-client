@@ -1,86 +1,86 @@
 import React from 'react';
 
-class logIn extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '',
-            password: ''
-        };
-    };
+class LogIn extends React.Component {
+	constructor(props) {
+		super(props);
 
-    onEmailChange = (event) => {
-        this.setState({email: event.target.value});
-    };
+		this.state = {
+			eMail: '',
+			passWord: ''
+		};
+	};
 
-    onPasswordChange = (event) => {
-        this.setState({password: event.target.value});
-    };
+	onEMailChange = event => {
+		this.setState({eMail: event.target.value});
+	};
 
-    onSubmitLogIn = () => {
-        const { email, password } = this.state;
-        fetch('https://smartbraiin-api.herokuapp.com/login', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    email,
-                    password
-                })
-        })
-            .then(response => response.json())
-            .then(user => {
-                if (user.id) {
-                    this.props.loadUser(user);
-                    this.props.onStageChange('main');
-                };
-            });
-    };
+	onPassWordChange = event => {
+		this.setState({passWord: event.target.value});
+	};
 
-    render() {
-        const { onStageChange } = this.props;
-        return (
-            <article className='br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center'>
-                <main className="pa4 black-80">
-                    <div className="measure">
-                        <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-                            <legend className="f1 fw6 ph0 mh0">SmartBrain</legend>
-                            <div className="mt3">
-                                <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-                                <input
-                                    className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                                    type="email"
-                                    name="email-address"
-                                    id="email-address"
-                                    onChange = {this.onEmailChange}
-                                />
-                            </div>
-                            <div className="mv3">
-                                <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-                                <input
-                                    className="autoFill b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                                    type="password"
-                                    name="password"
-                                    id="password"
-                                    onChange={this.onPasswordChange}
-                                />
-                            </div>
-                        </fieldset>
-                        <div className="">
-                            <input
-                                onClick={this.onSubmitLogIn}
-                                className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
-                                type="submit"
-                                value='Log In'
-                            />
-                        </div>
-                        <div className="lh-copy mt3">
-                            <p onClick={() => onStageChange('register')} className="f6 link dim black db pointer">Register</p>
-                        </div>
-                    </div>
-                </main>
-            </article>
-        );
-    };
+	onSubmitLogIn = () => {
+		const { eMail, passWord } = this.state;
+
+		fetch('https://smartbraiin-api.herokuapp.com/logIn', {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({ eMail, passWord })
+		})
+			.then(response => response.json())
+			.then(user => {
+				if (user.ID) {
+					this.props.loadUser(user);
+					this.props.onStageChange('main');
+				};
+			});
+	};
+
+	render() {
+		const { onStageChange } = this.props;
+		
+		return (
+			<article className='br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center'>
+				<main className='pa4 black-80'>
+					<div className='measure'>
+						<fieldset id='log-in' className='ba b--transparent ph0 mh0'>
+							<legend className='f1 fw6 ph0 mh0'>SmartBrain</legend>
+							<div className='mt3'>
+								<label className='db fw6 lh-copy f6' htmlFor='eMail'>EMail</label>
+								<input
+									className='pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
+									type='email'
+									name='eMail'
+									id='eMail'
+									onChange={this.onEMailChange}
+								/>
+							</div>
+							<div className='mv3'>
+								<label className='db fw6 lh-copy f6' htmlFor='passWord'>PassWord</label>
+								<input
+									className='autoFill b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
+									type='password'
+									name='passWord'
+									id='passWord'
+									onChange={this.onPassWordChange}
+								/>
+							</div>
+						</fieldset>
+						<div>
+							<input
+								className='b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib'
+								type='submit'
+								value='Log-In'
+								onClick={this.onSubmitLogIn}
+							/>
+						</div>
+						<div className='lh-copy mt3'>
+							<p className='f6 link dim black db pointer' onClick={() => {onStageChange('register')}}>Register</p>
+						</div>
+					</div>
+				</main>
+			</article>
+		);
+	};
 };
 
-export default logIn;
+export default LogIn;

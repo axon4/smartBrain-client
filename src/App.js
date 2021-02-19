@@ -25,12 +25,12 @@ const initialState = {
 	stage: 'logIn',
 	isLoggedIn: false,
 	user: {
-		id: 0,
+		ID: 0,
 		name: '',
-		email: '',
+		eMail: '',
 		entries: 0
 	},
-	input: '',
+	inPut: '',
 	imageURL: '',
 	boxes: []
 };
@@ -38,37 +38,40 @@ const initialState = {
 class App extends Component {
 	constructor() {
 		super();
+
 		this.state = initialState;
 	};
 
-	loadUser = (userData) => {
-		this.setState({user: {
-				id: userData.id,
+	loadUser = userData => {
+		this.setState({
+			user: {
+				ID: userData.ID,
 				name: userData.name,
-				email: userData.email,
+				eMail: userData.eMail,
 				entries: userData.entries
 			}
 		});
 	};
 
-	onStageChange = (stage) => {
+	onStageChange = stage => {
 		if (stage === 'logOut') {
 			this.setState(initialState);
 		} else if (stage === 'main') {
 			this.setState({isLoggedIn: true});
 		};
+
 		this.setState({ stage });
 	};
 
-	onInputChange = (event) => {
-		this.setState({input: event.target.value});
+	onInPutChange = event => {
+		this.setState({inPut: event.target.value});
 	};
 
-	detectFaceLocations = (data) => {
+	detectFaceLocations = data => {
 		return data.outputs[0].data.regions.map(face => {
 			const faceLocationData = face.region_info.bounding_box;
-			
-			const image = document.getElementById('inputImage');
+
+			const image = document.getElementById('inPutImage');
 			const width = Number(image.width);
 			const height = Number(image.height);
 
@@ -81,54 +84,55 @@ class App extends Component {
 		});
 	};
 
-	displayDetectionBoxes = (boxes) => {
+	disPlayDetectionBoxes = boxes => {
 		this.setState({ boxes });
 	};
 
 	onImageSubmit = () => {
-		this.setState({imageURL: this.state.input});
+		this.setState({imageURL: this.state.inPut});
 
-		fetch('https://smartbraiin-api.herokuapp.com/apicall', {
-				method: 'POST',
-				headers: {'Content-Type': 'application/json'},
-				body: JSON.stringify({input: this.state.input})
-			})
+		fetch('https://smartbraiin-api.herokuapp.com/APICall', {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({inPut: this.state.inPut})
+		})
 			.then(response => response.json())
 			.then(response => {
 				// debugger;
+
 				if (response) {
 					fetch('https://smartbraiin-api.herokuapp.com/image', {
-							method: 'PUT',
-							headers: {'Content-Type': 'application/json'},
-							body: JSON.stringify({id: this.state.user.id})
+						method: 'PUT',
+						headers: {'Content-Type': 'application/json'},
+						body: JSON.stringify({ID: this.state.user.ID})
 					})
 						.then(response => response.json())
 						.then(count => this.setState(Object.assign(this.state.user, {entries: count})))
 						.catch(error => console.log(error));
 				};
-				this.displayDetectionBoxes(this.detectFaceLocations(response));
+				this.disPlayDetectionBoxes(this.detectFaceLocations(response));
 			})
 			.catch(error => console.log(error));
 	};
 
 	render() {
 		const { stage, isLoggedIn, user, imageURL, boxes } = this.state;
+		
 		return (
 			<div className='App'>
 				<Particles className='particles' params={particlesOptions} />
 				<Navigation isLoggedIn={isLoggedIn} onStageChange={this.onStageChange} />
-				{stage === 'main'
-					?	<Fragment>
-							<Logo />
-							<Rank name={user.name} entries={user.entries} />
-							<ImageLinkForm onInputChange={this.onInputChange} onImageSubmit={this.onImageSubmit} />
-							<FaceRecognition imageURL={imageURL} boxes={boxes} />
-						</Fragment>
-					: 	(stage === 'logIn'
-							? <LogIn loadUser={this.loadUser} onStageChange={this.onStageChange} />
-							: <Register loadUser={this.loadUser} onStageChange={this.onStageChange} />
-					  	)
-				}
+				{stage === 'main' ? (
+					<Fragment>
+						<Logo />
+						<Rank name={user.name} entries={user.entries} />
+						<ImageLinkForm onInPutChange={this.onInPutChange} onImageSubmit={this.onImageSubmit} />
+						<FaceRecognition imageURL={imageURL} boxes={boxes} />
+					</Fragment>
+				) : (stage === 'logIn'
+						? <LogIn loadUser={this.loadUser} onStageChange={this.onStageChange} />
+						: <Register loadUser={this.loadUser} onStageChange={this.onStageChange} />
+				)}
 			</div>
 		);
 	};
