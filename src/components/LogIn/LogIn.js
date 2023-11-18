@@ -21,7 +21,7 @@ class LogIn extends React.Component {
 	onSubmitLogIn = () => {
 		const { eMail, passWord } = this.state;
 
-		fetch('https://smartbraiin-api.herokuapp.com/logIn', {
+		fetch(`${process.env.REACT_APP_SMARTBRAIN_SERVER}/logIn`, {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({ eMail, passWord })

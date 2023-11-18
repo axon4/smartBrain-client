@@ -91,7 +91,7 @@ class App extends Component {
 	onImageSubmit = () => {
 		this.setState({imageURL: this.state.inPut});
 
-		fetch('https://smartbraiin-api.herokuapp.com/APICall', {
+		fetch(`${process.env.REACT_APP_SMARTBRAIN_SERVER}/APICall`, {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({inPut: this.state.inPut})
@@ -101,7 +101,7 @@ class App extends Component {
 				// debugger;
 
 				if (response) {
-					fetch('https://smartbraiin-api.herokuapp.com/image', {
+					fetch(`${process.env.REACT_APP_SMARTBRAIN_SERVER}/image`, {
 						method: 'PUT',
 						headers: {'Content-Type': 'application/json'},
 						body: JSON.stringify({ID: this.state.user.ID})

@@ -26,7 +26,7 @@ class Register extends React.Component {
 	onSubmitRegister = () => {
 		const { name, eMail, passWord } = this.state;
 
-		fetch('https://smartbraiin-api.herokuapp.com/register', {
+		fetch(`${process.env.REACT_APP_SMARTBRAIN_SERVER}/register`, {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({ name, eMail, passWord })
