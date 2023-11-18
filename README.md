@@ -3,6 +3,9 @@
 * front-end for SmartBrain, an automatic--face-detection---application
 * automatically detect multiple faces with artificial-intelligence
 * log-in securely and see entry-count
+* demonstration-credentials:
+	* eMail: test@test.test
+	* passWord: test
 * server: ![SmartBrain (Server)](https://github.com/axon4/smartBrain-server)
 
 ## Stack
@@ -12,4 +15,5 @@
 ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
 ![React](https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=black)
 ![Redux](https://img.shields.io/badge/-Redux-764ABC?style=flat-square&logo=redux)
+![Jest](https://img.shields.io/badge/-Jest-C21325?style=flat-square&logo=jest&logoColor=white)
 ![Heroku](https://img.shields.io/badge/-Heroku-430098?style=flat-square&logo=heroku)

@@ -110,6 +110,7 @@ class App extends Component {
 						.then(count => this.setState(Object.assign(this.state.user, {entries: count})))
 						.catch(error => console.log(error));
 				};
+
 				this.disPlayDetectionBoxes(this.detectFaceLocations(response));
 			})
 			.catch(error => console.log(error));
